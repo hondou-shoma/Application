@@ -1,0 +1,149 @@
+/* iOS Cordova Tweak */
+.device-cordova.device-ios {
+  height: 100vh;
+}
+
+/* Your app custom styles here */
+html, body {
+  width: 100vw;
+  height: 100vh;
+  font-weight:bold;
+}
+input[type="submit"] {
+    margin-top: 10%;
+    margin-bottom: 10%;    
+    width:10em;
+    height:3em;
+}
+
+#file_all {
+    border: 1px solid #ffffff;
+    margin-bottom: 10%;
+    width: 90%;
+}
+
+label .file_select{
+    padding-top: 10px;
+    padding-bottom: 10px;
+    color: #ffffff;
+    background-color: #2196f3;
+    cursor: pointer;
+    text-align: center;
+}
+
+input[type="file"] {
+    display: none; 
+}
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+ transform: scale(1.5);
+}
+input[type="number"] {
+  -moz-appearance:textfield;
+  text-align: center;
+  width: 100%;
+}
+
+input[type="tel"]::-webkit-outer-spin-button,
+input[type="tel"]::-webkit-inner-spin-button {
+ transform: scale(1.5);
+}
+input[type="tel"] {
+  -moz-appearance:textfield;
+  text-align: center;
+  width: 100%;
+}
+
+#start{  
+  height:150%;
+  width:80%;
+  margin-left:10%;
+}
+
+#button1{
+  width: 80%;
+  margin-left: 10%;
+}
+
+#button2{
+  width: 80%;
+  margin-left: 10%;
+}
+
+.season-center{
+  font-size: 120%;
+  font-weight: lighter;
+  text-align: center;
+  margin-bottom: 0;
+}
+
+table{
+  width: 90%;
+  border-collapse:separate;
+  border-spacing: 0;
+}
+
+table th:first-child{
+  border-radius: 5px 0 0 0;
+}
+
+table th:last-child{
+  border-radius: 0 5px 0 0;
+  border-right: 1px solid #3c6690;
+}
+
+table th{
+  text-align: center;
+  color:white;
+  background: #2196f3;
+  border-left: 1px solid #3c6690;
+  border-top: 1px solid #3c6690;
+  border-bottom: 1px solid #3c6690;
+  box-shadow: 0px 1px 1px rgba(255,255,255,0.3) inset;
+  width: 25%;
+  padding: 10px 0;
+}
+
+table td{
+  text-align: center;
+  border-left: 1px solid #a8b7c5;
+  border-bottom: 1px solid #a8b7c5;
+  border-top:none;
+  box-shadow: 0px -3px 5px 1px #eee inset;
+  width: 25%;
+  padding: 10px 0;
+}
+
+table td:last-child{
+  border-right: 1px solid #a8b7c5;
+}
+
+table tr:last-child td:first-child {
+  border-radius: 0 0 0 5px;
+}
+
+table tr:last-child td:last-child {
+  border-radius: 0 0 5px 0;
+}
+
+#text-center{
+  text-align: center;
+}
+
+.box {
+  height: 200px;/* 縦幅を550pxに指定 */
+  overflow-y: scroll;/* 縦方向にスクロール可能にする */
+}
+
+#list{
+  height:150%;
+  width:80%;
+  margin-left:10%;
+  background-color:white;
+}
+
+#select{
+  text-align: center;
+
+}

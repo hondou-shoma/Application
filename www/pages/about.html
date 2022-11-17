@@ -1,0 +1,232 @@
+<template>
+  <div class="page">
+    <div class="navbar">
+      <div class="navbar-bg"></div>
+      <div class="navbar-inner sliding">
+        <div class="left">
+          <a href="#" class="link back">
+            <i class="icon icon-back"></i>
+            <span class="if-not-md">Back</span>
+          </a>
+        </div>
+        <div class="title">栄養素量算出</div>
+      </div>
+    </div>
+    <div class="page-content">
+      <div class="block-title">料理情報</div>
+        <div class="block block-strong" id="text-center">
+          <div id="test">
+            <select name="dishes" id="list" class="col button button-round button-outline">
+                <!--valueについては食品表の索引番号(食品番号)と合わせる-->
+                <!--料理名より加工法のほうがいい？-->
+                <option value="" selected style="text-align:center">料理を選択して下さい</option>
+                <option value="2440">肉じゃが</option>
+                <option value="1">サンドイッチ</option>
+                <option value="2">ハンバーグ</option>
+                <option value="3">ポテトフライ</option>
+                <option value="4">ハンバーガー</option>
+                <option value="5">きんぴらごぼう</option>
+                <option value="6">カレー</option>
+                <option value="7">メンチカツ</option>
+                <option value="8">ポテトフライ</option>
+                <option value="9">ハンバーガー</option>
+            </select>
+          </div>
+        </div>
+
+      <div class="block-title">食材情報</div>
+        <div class="block block-strong" id="text-center">
+            <div id="tests">
+            <input type="button" value="写真を撮影" id="start" class="col button button-round button-outline" style="background-color:white"/>
+          </div>
+          <input type="button" value="テスト" class="col button button-round button-outline" style="background-color:white"/>
+        </div>
+      <div class="block-title">調味料情報</div>
+      <!--元のactionの中身http://localhost/monaca/www/index.php-->
+        <form action="" method="post" autocomplete="off" enctype="multipart/form-data">
+        <div class="box">
+          <div class="list">
+            <ul>          
+              <div id="checkbox"></div>
+            </ul>  
+          </div>
+          <input type="button" value="種類確定" id="button1" class="col button button-round button-outline" style="background-color:white"/>
+          <div class="block block-strong">
+            <p class="checked"></p>
+          </div>
+        </div>
+<!--使わない予定-->
+      <div class="block-title">ファイル選択</div>
+      <div class="block block-strong">
+        <p class="gram"></p>
+        <p>アップロードするファイルを指定してください。</p>
+        <div id="file_all">
+            <label>
+              <div class="file_select">
+                <!--<input type="file" name="file" accept="video/*" value="ファイルを選択"/>-->
+              </div>
+            </label>
+            <p id="file_name">選択されていません</p>
+          </div>
+      </div>
+<!---->      
+     <input type="submit" class="col button button-big button-fill button-raised color-green" id="button2" value="栄誉素量計算"/> 
+     </form>
+    </div>
+  </div>
+</template>
+
+<style>
+.red-link {
+    color: red;
+  }
+
+</style>
+
+<script>
+  export default (props, { $f7, $on }) => {
+    const title = 'Component Page';
+    const names = ['John', 'Vladimir', 'Timo'];
+
+    const openAlert = () => {
+      $f7.dialog.alert('Hello world!');
+    }
+    $on('pageInit', () => {
+    //撮影関連
+    start = document.getElementById('start')
+    start.addEventListener('click', takePictures, false);
+    var pictures = [];//画像を格納する配列
+    function takePictures(){
+      var img = document.createElement("img");
+      img.style="width:300px; height:400px";
+      var x = document.getElementById("tests");
+      x.appendChild(img);
+    var option = {
+    destinationType: Camera.DestinationType.DATA_URL, 
+    encodingType: Camera.EncodingType.JPEG,
+    //saveToPhotoAlbum: true, //撮影後端末に保存
+    correctOrientation: true // 撮影時と同じ向きに写真を回転
+  };
+  navigator.camera.getPicture(onSuccess, onError, option);
+  function onSuccess(imageData){
+    //撮影データを配列に格納、表示
+    pictures.push(imageData);
+    for(i=0;i<pictures.length;i++){
+      img.id="pics"+i;
+      $("#pics" + i).attr("src","data:image/jpeg;base64," + pictures[i]);
+    }
+  }
+    function onError(message){
+      alert("Error:" + message);
+    }
+    }
+    //調味料関連
+    var genre=['上白糖', 'グラニュー糖','食塩', '穀物酢', 'こいくちしょうゆ', '麦みそ', '本みりん', 'トマトケチャップ', 'マヨネーズ（全卵）'];
+     var gramchange = {};
+     gramchange = {
+      '上白糖' :3, 'グラニュー糖':4, '食塩':6, '穀物酢':5, 'こいくちしょうゆ':6, '麦みそ':6, '本みりん':6, 'トマトケチャップ':5, 'マヨネーズ（全卵）':4
+     };
+
+     for(var i =0;i < genre.length; i++){
+      var liElement = document.createElement("li"); // li要素作成
+      var labelElement = document.createElement("label"); // label要素作成
+      labelElement.setAttribute("class","item-checkbox item-content"); // label要素にidを設定            
+      var itemElement = document.createElement("div"); // div要素作成
+      itemElement.setAttribute("class","item-inner"); // div要素にidを設定            
+      var nameElement = document.createElement("div"); // div要素作成       
+      var nameContent = document.createTextNode(genre[i]); // テキストノードを作成
+      nameElement.appendChild(nameContent); // div要素にテキストノードを追加
+      nameElement.setAttribute("id","SeasoningName"); // div要素にidを設定
+      nameElement.setAttribute("class","item-title"); // div要素にclassを設定      
+      var newElement = document.createElement("input"); // input要素作成
+      newElement.setAttribute("type","checkbox");// input要素のtypeを設定     
+      newElement.setAttribute("name","SeasoningName");// input要素のnameを設定   
+      newElement.setAttribute("value",genre[i]);// input要素のvalueを設定          
+      newElement.setAttribute("id","child-p1"); // input要素にidを設定
+      var iElement = document.createElement("i"); // i要素作成
+      iElement.setAttribute("class","icon icon-checkbox"); // i要素にidを設定       
+      // ----------------------------
+      // 親要素の後に追加します
+      // ----------------------------
+      // 親要素（div）への参照を取得
+      var parentDiv = document.getElementById("checkbox");
+      // 追加
+      parentDiv.appendChild(liElement);      
+      liElement.appendChild(labelElement);
+      labelElement.appendChild(newElement);
+      labelElement.appendChild(iElement);
+      labelElement.appendChild(itemElement);     
+      itemElement.appendChild(nameElement);            
+    }
+    
+      $(function(){
+        $('#button1').click(function(){
+          $('.checked').empty();
+          $('[name="SeasoningName"]:checked').each(function(index,element){
+            $('.checked').append('<p class = "season-center">' + $(element).val() + '</p>');
+            
+            $('.checked').append('<table align="center">'+'<tr>'+'<th>'+'小さじ'+'</th>'+'<th>'+'大さじ'+'</th>'+'</tr>' +'<tr>'+'<td>'+ '<input type="number" name="Teaspoon" placeholder="0" min="0" step="0.25">'+'</td>'+'<td>'+ '<input type="number" name="Tbsp" placeholder="0" min="0" step="0.25">'+'</td>'+'</tr>'+'</table>' );
+          });
+          //$('.checked').append('<input type="button" class = "button2"value="ボタン">');            
+        });
+      });  
+
+      $(document)
+      $(function () {
+        $('#button2').click( function() {//栄養価算出ボタンでの処理
+        //画像データ(base64)をサーバへ送信する処理
+            alert(pictures);
+        //////////////////////
+          $('.gram').empty();
+          var SelectSeasoning = [];
+          $('[name="SeasoningName"]:checked').each(function(index,element){
+            //alert($(element).val());
+            SelectSeasoning.push($(element).val());
+          })    
+            var obj = new Object();
+            var Changegram = [];
+          // テキストボックスのデータを取得
+            for(var i =0;i < genre.length; i++){
+              if ((Number($(document.getElementsByName('Teaspoon')[i]).val()) > 0) || (Number($(document.getElementsByName('Tbsp')[i]).val()) > 0)) {              
+                var getData = Number($(document.getElementsByName('Teaspoon')[i]).val()) + Number($(document.getElementsByName('Tbsp')[i]).val())*3;
+                Changegram.push(gramchange[SelectSeasoning[i]] * getData);
+
+                //調味料の種類確認用alert
+                //alert(SelectSeasoning[i]);
+                //調味料のグラム確認用alert
+                //alert(Changegram[i]);
+
+                //localStorage使用のためのプログラム(今回不使用)//
+                var array = [];
+                obj[SelectSeasoning[i]] = Changegram[i];
+                array.push(obj);
+                var setjson = JSON.stringify(obj);
+                localStorage.setItem('キー',setjson);
+                /////////////////////////////////////////////////
+
+                var postElement = document.createElement("input"); // input要素作成
+                postElement.setAttribute("type","hidden");// input要素のtypeを設定     
+                postElement.setAttribute("name",SelectSeasoning[i]);// input要素のnameを設定   
+                postElement.setAttribute("value",Changegram[i]);// input要素のvalueを設定
+                parentDiv.appendChild(postElement);                
+              }
+            }
+          //})
+        });
+      });
+      
+    //ファイル関連
+    $('input').on('change', function () {
+     var file = $(this).prop('files')[0];
+     $('#file_name').text(file.name);
+    });
+    /////////////////////////////////////
+    });
+    $on('pageAfterOut', () => {
+      // ページがビューから離れた
+    });
+
+    // コンポーネント関数はレンダリング関数を返さなければならない
+    return $render;
+  }
+</script>

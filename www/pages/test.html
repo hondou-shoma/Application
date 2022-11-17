@@ -1,0 +1,48 @@
+<template>
+  <div class="page">
+    <div class="navbar">
+      <div class="navbar-bg"></div>
+      <div class="navbar-inner sliding">
+        <div class="left">
+          <a href="#" class="link back">
+            <i class="icon icon-back"></i>
+            <span class="if-not-md">Back</span>
+          </a>
+        </div>
+        <div class="title">検証用ページ</div>
+      </div>
+    </div>
+    <!--/////////////////////////////////-->
+    <div class="page-content">
+        <input type="submit" class="col button button-big button-fill button-raised color-green" id="button2" value="バッチファイル"/>
+    </div>
+  </div>
+</template>
+
+<style>
+.red-link {
+    color: red;
+  }
+
+</style>
+
+<script>
+  export default (props, { $f7, $on }) => {
+    const title = 'Component Page';
+    const names = ['John', 'Vladimir', 'Timo'];
+
+    const openAlert = () => {
+      $f7.dialog.alert('Hello world!');
+    }
+    $on('pageInit', () => {
+      
+    /////////////////////////////////////
+    });
+    $on('pageAfterOut', () => {
+      // ページがビューから離れた
+    });
+
+    // コンポーネント関数はレンダリング関数を返さなければならない
+    return $render;
+  }
+</script>
